@@ -13,6 +13,7 @@
         <Copyright>Copyright © AV</Copyright>
         <PackageIconUrl>https://raw.githubusercontent.com/SnrdTeam/snrd-icons/master/development-icons/dotnet-icon%4064.png</PackageIconUrl>
         <NoPackageAnalysis>true</NoPackageAnalysis>
+        <RepositoryUrl>https://github.com/AV-Household/lib-webserver-extensions</RepositoryUrl>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     </PropertyGroup>
 
