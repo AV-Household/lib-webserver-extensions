@@ -11,6 +11,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{901ECD09-E
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{858068B1-131D-4293-ACD0-0BA56BC8E1C9}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\validate.yml = .github\workflows\validate.yml
+		.github\workflows\publish-webserver-extensions.yml = .github\workflows\publish-webserver-extensions.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
