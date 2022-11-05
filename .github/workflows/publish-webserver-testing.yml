@@ -7,7 +7,7 @@ jobs:
   build:
     env:
       BUILD_CONFIG: 'Release'
-      SOLUTION: 'src/WebServer.Testing/AV.Household.WebServer.Extensions.csproj'
+      SOLUTION: 'src/WebServer.Testing/AV.Household.WebServer.Testing.csproj'
       PACKAGE: 'src/WebServer.Testing/bin/Release/*.nupkg'
 
     runs-on: ubuntu-latest
