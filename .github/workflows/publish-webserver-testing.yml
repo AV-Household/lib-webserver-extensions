@@ -1,0 +1,34 @@
+name: Publish webserver testing package
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    env:
+      BUILD_CONFIG: 'Release'
+      SOLUTION: 'src/WebServer.Testing/AV.Household.WebServer.Extensions.csproj'
+      PACKAGE: 'src/WebServer.Testing/bin/Release/*.nupkg'
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      
+      # Setup .NET 6
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 6.0.x
+      
+      # Build project
+      - name: Build
+        run: dotnet build $SOLUTION --configuration $BUILD_CONFIG
+      
+      # Authorize in nuget repository        
+      - name: Authorize in Github Nuget
+        run: dotnet nuget add source --username avmorozov --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/AV-Household/index.json"
+
+      # Publish package in nuget repository        
+      - name: Publish package in Github Nuget
+        run: dotnet nuget push $PACKAGE --source "github"
