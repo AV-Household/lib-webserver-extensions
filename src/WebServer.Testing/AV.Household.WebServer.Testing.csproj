@@ -23,7 +23,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="AV.Household.Commons" Version="0.1.0-alpha" />
+        <PackageReference Include="AV.Household.Commons" Version="0.2.0-alpha" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="6.0.10" />
         <PackageReference Include="Testcontainers" Version="2.2.0" />
     </ItemGroup>
