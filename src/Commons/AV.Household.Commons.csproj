@@ -6,4 +6,20 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <PropertyGroup>
+        <Description>.NET common utils for AV Household ecosystem.</Description>
+        <PackageTags>common utils</PackageTags>
+        <Authors>Alexander Morozov</Authors>
+        <Copyright>Copyright © AV</Copyright>
+        <PackageIconUrl>https://raw.githubusercontent.com/SnrdTeam/snrd-icons/master/development-icons/dotnet-icon%4064.png</PackageIconUrl>
+        <NoPackageAnalysis>true</NoPackageAnalysis>
+        <RepositoryUrl>https://github.com/AV-Household/lib-webserver-extensions</RepositoryUrl>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <VersionPrefix>0.1.0</VersionPrefix>
+        <VersionSuffix>alpha</VersionSuffix>
+    </PropertyGroup>
+
 </Project>
