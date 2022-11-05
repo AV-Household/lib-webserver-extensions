@@ -1,4 +1,4 @@
-﻿namespace AV.Household.WebServer.Extensions.Tasks;
+﻿namespace AV.Household.WebServer.Testing.Tasks;
 
 /// <summary>
 ///     Class that encapsulates asynchronous result or exception occurs asynchronously
