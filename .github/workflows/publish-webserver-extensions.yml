@@ -21,13 +21,13 @@ jobs:
         with:
           dotnet-version: 6.0.x
       
-      # Build project
-      - name: Build
-        run: dotnet build $SOLUTION --configuration $BUILD_CONFIG
-      
       # Authorize in nuget repository        
       - name: Authorize in Github Nuget
         run: dotnet nuget add source --username avmorozov --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/AV-Household/index.json"
+
+      # Build project
+      - name: Build
+        run: dotnet build $SOLUTION --configuration $BUILD_CONFIG      
 
       # Publish package in nuget repository        
       - name: Publish package in Github Nuget
