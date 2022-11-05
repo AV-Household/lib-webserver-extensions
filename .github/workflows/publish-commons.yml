@@ -1,4 +1,4 @@
-name: Publish webserver testing package
+name: Publish commons package
 
 on:
   workflow_dispatch:
