@@ -15,9 +15,9 @@ namespace AV.Household.WebServer.Extensions.Server;
 public static class WebServerSetupHelpers
 {
     private static bool _configureSwagger = true;
-    
+
     /// <summary>
-    /// Default microservice setup
+    ///     Default microservice setup
     /// </summary>
     /// <param name="builder">Webapp builder</param>
     /// <returns>Webapp ready to run</returns>
@@ -34,13 +34,13 @@ public static class WebServerSetupHelpers
 
         var app = builder.Build();
         LogGreetingsMessage(assemblyFullName);
-        
-        if(_configureSwagger) app.UseSwagger();
+
+        if (_configureSwagger) app.UseSwagger();
         ConfigureDevelopmentEnvironment(assemblyFullName);
 
         app.UseAuthentication();
         app.UseAuthorization();
-        
+
         app.MapControllers();
 
         return app;
@@ -52,7 +52,7 @@ public static class WebServerSetupHelpers
             if (jwtOptions is null)
                 throw new ApplicationException(
                     "JWT is not configured for microservice. Add configuration section to appsettings.json.");
-            
+
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
@@ -75,19 +75,17 @@ public static class WebServerSetupHelpers
             builder.Host
                 .ConfigureLogging(loggingBuilder => loggingBuilder.ClearProviders())
                 .UseSerilog((webHostBuilderContext, loggerConfiguration) =>
-                        loggerConfiguration.ReadFrom.Configuration(webHostBuilderContext.Configuration, "Serilog"),
-                    preserveStaticLogger: false,
-                    writeToProviders: false);
+                    loggerConfiguration.ReadFrom.Configuration(webHostBuilderContext.Configuration, "Serilog"));
         }
 
         void ConfigureSwaggerGen(AssemblyName assemblyName)
         {
             var documentationFile = $"{AppContext.BaseDirectory}{assemblyName.Name}.xml";
             _configureSwagger = File.Exists(documentationFile);
-            
-            if(!_configureSwagger)
+
+            if (!_configureSwagger)
                 return;
-            
+
             builder.Services.AddSwaggerGen(c =>
             {
                 c.SupportNonNullableReferenceTypes();
@@ -102,18 +100,18 @@ public static class WebServerSetupHelpers
 
         void LogGreetingsMessage(AssemblyName assemblyName)
         {
-            app.Logger.LogInformation("Starting {AssemblyName} ver {AssemblyVersion}...", 
+            app.Logger.LogInformation("Starting {AssemblyName} ver {AssemblyVersion}...",
                 assemblyName.Name, assemblyFullName.Version);
         }
 
         void ConfigureDevelopmentEnvironment(AssemblyName assemblyName)
         {
             if (!app.Environment.IsDevelopment()) return;
-            
-            app.Logger.LogInformation($"Use development exception page");
+
+            app.Logger.LogInformation("Use development exception page");
             app.UseDeveloperExceptionPage();
 
-            app.Logger.LogInformation($"Use Swagger UI.");
+            app.Logger.LogInformation("Use Swagger UI.");
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint($"/swagger/v{assemblyName.Version?.Major ?? 1}/swagger.json", assemblyName.Name);
