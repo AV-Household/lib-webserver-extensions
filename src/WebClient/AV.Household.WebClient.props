@@ -1,0 +1,11 @@
+﻿<Project>
+
+    <PropertyGroup>
+        <WarningsAsErrors>$(WarningsAsErrors);OPENAPIGEN001;OPENAPIGEN002;OPENAPIGEN003;OPENAPIGEN004;OPENAPIGEN005;OPENAPIGEN006;OPENAPIGEN010</WarningsAsErrors>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <AdditionalFiles Include="**\*.openapi" />
+    </ItemGroup>
+
+</Project>

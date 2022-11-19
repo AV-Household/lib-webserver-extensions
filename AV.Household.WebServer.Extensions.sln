@@ -20,6 +20,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{F0159D
 		nuget.config = nuget.config
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AV.Household.WebClient", "src\WebClient\AV.Household.WebClient.csproj", "{1C06C4DF-8560-4658-A617-3CF8B4779CE2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AV.Household.WebClient.Sample", "src\WebClient.Sample\AV.Household.WebClient.Sample.csproj", "{9332D99C-0D0A-4E0C-A976-4B0E2522F6B8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,6 +42,14 @@ Global
 		{175C5949-72E7-41C5-868D-6CD46514C6DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{175C5949-72E7-41C5-868D-6CD46514C6DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{175C5949-72E7-41C5-868D-6CD46514C6DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C06C4DF-8560-4658-A617-3CF8B4779CE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C06C4DF-8560-4658-A617-3CF8B4779CE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C06C4DF-8560-4658-A617-3CF8B4779CE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C06C4DF-8560-4658-A617-3CF8B4779CE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9332D99C-0D0A-4E0C-A976-4B0E2522F6B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9332D99C-0D0A-4E0C-A976-4B0E2522F6B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9332D99C-0D0A-4E0C-A976-4B0E2522F6B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9332D99C-0D0A-4E0C-A976-4B0E2522F6B8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

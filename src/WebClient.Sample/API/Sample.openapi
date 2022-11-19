@@ -1,0 +1,195 @@
+﻿{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Swagger UI for the Bored API",
+    "description": "Find out more about the project at [https://www.boredapi.com](https://www.boredapi.com).  <br/><br/> **NOTE** The Bored API requires no authentication to use.  <br/> <br/> To interact with this Swagger UI, click the **GET** button to display the available parameters. Click **Try it out** to start plugging in parameters. Click **Execute** to run the query. <br/><br/> **TIP** After a query is submitted, The Responses section will display the equivalent **Curl** command and Request URL. ",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://www.boredapi.com"
+    }
+  ],
+  "paths": {
+    "/api/activity": {
+      "get": {
+        "tags": [
+          "Bored? Use this API to find things you can do."
+        ],
+        "summary": "Use this endpoint to find activities to do. If you leave all the parameters empty, a random activity will be suggested. If you specify any combinations of the parameters, the activity to be returned will match your specifications.",
+        "description": "You may specify any combinations of <br/> <br/> 1.Type of the activity (\"education\", \"recreational\", \"social\", \"diy\", \"charity\", \"cooking\", \"relaxation\", \"music\", \"busywork\")  <br/> 2. Number of activity participants  <br/> 3. Price indicator from [0-1] where 0 is free and 1 is super expensive <br/> 4. Minimum price indicator from [0-1] <br/> 5. Maximum price indicator from [0-1]  <br/> 6. Accessibility indicator from [0-1] where 0 is effortless and 1 is super difficult <br/>  7. Minimum accessibility indicator from [0-1]  <br/> 8. Maximum accessibility indicator from [0-1] <br/> 9. Integer from [1000000,9000000] to represent the unique ID of an activity  <br/><br/> If you do not specify any parameters, a random activity will be returned. <br/> <br/>The response is in Json format.",
+        "operationId": "getActivity",
+        "parameters": [
+          {
+            "name": "type",
+            "in": "query",
+            "description": "Optional. Accepts an activity type from the drop-down list.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "education",
+                "recreational",
+                "social",
+                "diy",
+                "charity",
+                "cooking",
+                "relaxation",
+                "music",
+                "busywork"
+              ]
+            }
+          },
+          {
+            "name": "participants",
+            "in": "query",
+            "description": "Optional. Accepts an integer to represent the number of participants needed for this activity. Currently the Swagger UI is configured to accept integer from 1 to 10 (both inclusive). <br/> <br/> **TIP** Put an integer from 1 to 8.The current database does not have activities for participants over 8 people.",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 10
+            }
+          },
+          {
+            "name": "price",
+            "in": "query",
+            "description": "Optional. Accepts a number from 0.0 to 1.0 to represent the price indicator. 0 means free and 1 means very expensive. When specified, an exact match of the price is required. <br/> <br/> **TIP** So far the Bored API database does not have activities with price indicator higher than 0.8.",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          },
+          {
+            "name": "minprice",
+            "in": "query",
+            "description": "Optional. Accepts a number from 0.0 to 1.0 to represent the lower bound price indicator you want for your activity. This means the activity must have a price indicator no smaller than this number.  <br/> <br/> **TIP** So far the Bored API database does not have activities with price indicator higher than 0.8.",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          },
+          {
+            "name": "maxprice",
+            "in": "query",
+            "description": "Optional. Accepts a number from 0.0 to 1.0 to represent the upper bound price indicator you want for your activity. This means the activity must have a price indicator no bigger than this number.  <br/> <br/> **TIP** So far the Bored API database does not have activities with price indicator higher than 0.8.",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          },
+          {
+            "name": "accessibility",
+            "in": "query",
+            "description": "Optional. Accepts a number from 0.0 to 1.0 to represent the difficulty level of the activity. 0 means very easy and 1 means very challenging.",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          },
+          {
+            "name": "minaccessibility",
+            "in": "query",
+            "description": "Optional. Accepts a number from 0.0 to 1.0 to represent the lower bound accessibility level. This means the activity to be returned must have a difficulty level no smaller than this number.",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          },
+          {
+            "name": "maxaccessibility",
+            "in": "query",
+            "description": "Optional. Accepts a number from 0.0 to 1.0 to represent the upper bound accessibility level. This means the activity to be returned must have a difficulty level no bigger than this number.",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          },
+          {
+            "name": "key",
+            "in": "query",
+            "description": "Optional. Accepts an integer from 1000000 to 9999999 to represent the unique ID of an activity. The activity with the matching ID will be returned. <br/> <br/> **TIP**  Do not include thousand separators in your input.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1000000,
+              "maximum": 9999999
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "activity": {
+                      "type": "string",
+                      "description": "parameter",
+                      "example": "Learn how to beatbox"
+                    },
+                    "type": {
+                      "type": "string",
+                      "description": "parameter",
+                      "example": "recreational"
+                    },
+                    "participants": {
+                      "type": "integer",
+                      "description": "parameter",
+                      "example": 1
+                    },
+                    "price": {
+                      "type": "number",
+                      "description": "parameter",
+                      "example": 0
+                    },
+                    "link": {
+                      "type": "string",
+                      "description": "URL",
+                      "example": "https://en.wikipedia.org/wiki/Beatboxing"
+                    },
+                    "key": {
+                      "type": "integer",
+                      "description": "parameter",
+                      "example": 8731710
+                    },
+                    "accessibility": {
+                      "type": "number",
+                      "description": "parameter",
+                      "example": 1
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "No activity found",
+                  "type": "string",
+                  "example": "No activity found with the specified parameters"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

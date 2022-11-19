@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Debug Sample": {
+      "commandName": "DebugRoslynComponent",
+      "targetProject": "..\\WebClient.Sample\\AV.Household.WebClient.Sample.csproj"
+    }
+  }
+}
