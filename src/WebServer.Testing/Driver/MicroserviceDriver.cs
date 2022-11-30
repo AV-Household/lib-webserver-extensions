@@ -1,4 +1,5 @@
-﻿using AV.Household.Commons.Tasks;
+﻿using System.Net.Http.Headers;
+using AV.Household.Commons.Tasks;
 using DotNet.Testcontainers.Builders;
 using DotNet.Testcontainers.Configurations;
 using DotNet.Testcontainers.Containers;
@@ -26,6 +27,11 @@ public abstract class MicroserviceDriver<TClient, TEntryPoint> : WebApplicationF
     protected readonly AsyncLazy<MongoDbTestcontainer> Database;
 
     /// <summary>
+    ///     Http client that sends query to microservice
+    /// </summary>
+    protected readonly AsyncLazy<HttpClient> HttpClient;
+
+    /// <summary>
     ///     Default constructor implementation
     /// </summary>
     /// <exception cref="InvalidOperationException">Throws if can't setup lazy objects</exception>
@@ -42,13 +48,26 @@ public abstract class MicroserviceDriver<TClient, TEntryPoint> : WebApplicationF
             return container;
         });
 
+        HttpClient = new AsyncLazy<HttpClient>(() => Task.FromResult(CreateClient()));
+
         Client = new AsyncLazy<TClient>(() => Task.FromResult(
-            Activator.CreateInstance(typeof(TClient), CreateClient()) as TClient ??
-            throw new InvalidOperationException("Can't create web service client. Check its constructor.")));
+            Activator.CreateInstance(typeof(TClient), HttpClient.GetAwaiter().GetResult()) as TClient
+            ?? throw new InvalidOperationException("Can't create web service client. Check its constructor.")));
     }
 
     /// <summary>
     ///     Returns desired MongoDb configuration
     /// </summary>
     protected abstract MongoDbTestcontainerConfiguration? DatabaseConfiguration { get; }
+
+    /// <summary>
+    ///     Set bearer token to access microservice API
+    /// </summary>
+    /// <param name="bearerToken"></param>
+    public async Task SetTokenAsync(string bearerToken)
+    {
+        if (!string.IsNullOrEmpty(bearerToken))
+            (await HttpClient).DefaultRequestHeaders.Authorization =
+                new AuthenticationHeaderValue("Bearer", bearerToken);
+    }
 }

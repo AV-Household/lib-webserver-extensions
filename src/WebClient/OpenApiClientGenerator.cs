@@ -22,7 +22,6 @@ namespace AV.Household.WebClient;
 public class OpenApiClientGenerator : IIncrementalGenerator
 {
     /// <inheritdoc cref="IIncrementalGenerator" />
-    /// />
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
         var openApiFiles = context.AdditionalTextsProvider
@@ -101,6 +100,7 @@ public class OpenApiClientGenerator : IIncrementalGenerator
                 ClassName = $"{@class}Client",
                 OperationNameGenerator = new MultipleClientsFromPathSegmentsOperationNameGenerator(),
                 ClientClassAccessModifier = "public",
+                UseBaseUrl = false,
                 InjectHttpClient = true,
                 ExceptionClass = "ApiException",
                 GenerateClientInterfaces = true,

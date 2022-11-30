@@ -1,6 +1,9 @@
 ﻿using AV.Household.WebClient.Sample.API;
+using Type = AV.Household.WebClient.Sample.API.Type;
 
-var sampleClient = new SampleClient(new HttpClient(){BaseAddress = new Uri("https://www.boredapi.com")})
+var client = new HttpClient();
+client.BaseAddress = new Uri("https://www.boredapi.com");
+var sampleClient = new SampleClient(client)
     {
         JsonSerializerSettings =
         {
@@ -8,7 +11,7 @@ var sampleClient = new SampleClient(new HttpClient(){BaseAddress = new Uri("http
         }
     };
 
-var activity = await sampleClient.ActivityAsync(key: 5881028).ConfigureAwait(false);
+var activity = await sampleClient.ActivityAsync(Type.Busywork, participants:3).ConfigureAwait(false);
 
 Console.WriteLine($"Response is {activity.Key} : {activity.Activity}");
 

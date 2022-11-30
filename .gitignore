@@ -4,3 +4,5 @@ obj/
 riderModule.iml
 nuget.config
 /_ReSharper.Caches/
+.vs/
+.idea/
