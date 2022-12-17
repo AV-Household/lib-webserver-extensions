@@ -6,3 +6,4 @@ nuget.config
 /_ReSharper.Caches/
 .vs/
 .idea/
+/AV.Household.WebServer.Extensions.sln.DotSettings.user
