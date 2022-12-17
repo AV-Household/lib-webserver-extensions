@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Text.Json.Serialization;
 using AV.Household.WebServer.Extensions.OpenAPI;
 using AV.Household.WebServer.Extensions.Options;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -27,7 +28,11 @@ public static class WebServerSetupHelpers
         ConfigureSerilog();
         ConfigureJwtParameters();
 
-        builder.Services.AddControllers();
+        builder.Services.AddControllers()
+            .AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            });
         builder.Services.AddEndpointsApiExplorer();
 
         var assemblyFullName = Assembly.GetEntryAssembly()!.GetName();
