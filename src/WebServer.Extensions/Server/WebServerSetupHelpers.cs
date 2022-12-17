@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using AV.Household.WebServer.Extensions.OpenAPI;
 using AV.Household.WebServer.Extensions.Options;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -95,6 +96,7 @@ public static class WebServerSetupHelpers
                     Version = assemblyName.Version?.ToString()
                 });
                 c.IncludeXmlComments(documentationFile);
+                c.SchemaFilter<EnumSchemaFilter>();
             });
         }
 
