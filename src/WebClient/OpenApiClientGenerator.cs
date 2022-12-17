@@ -98,7 +98,7 @@ public class OpenApiClientGenerator : IIncrementalGenerator
             var generator = new CSharpClientGenerator(openApi, new CSharpClientGeneratorSettings
             {
                 ClassName = $"{@class}Client",
-                OperationNameGenerator = new MultipleClientsFromPathSegmentsOperationNameGenerator(),
+                OperationNameGenerator = new SingleClientFromPathSegmentsOperationNameGenerator(),
                 ClientClassAccessModifier = "public",
                 UseBaseUrl = false,
                 InjectHttpClient = true,
