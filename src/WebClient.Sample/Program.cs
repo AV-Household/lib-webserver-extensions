@@ -11,7 +11,7 @@ var sampleClient = new SampleClient(client)
         }
     };
 
-var activity = await sampleClient.ActivityAsync(Type.Busywork, participants:3).ConfigureAwait(false);
+var activity = await sampleClient.ApiActivityAsync(type: Type.Busywork, participants:3).ConfigureAwait(false);
 
 Console.WriteLine($"Response is {activity.Key} : {activity.Activity}");
 
