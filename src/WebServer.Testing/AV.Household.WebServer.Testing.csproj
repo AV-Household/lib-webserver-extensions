@@ -18,12 +18,11 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <VersionPrefix>0.4.0</VersionPrefix>
+        <VersionPrefix>0.5.0</VersionPrefix>
         <VersionSuffix>alpha</VersionSuffix>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="AV.Household.Commons" Version="0.2.0-alpha" />
         <PackageReference Include="AV.Household.WebServer.Extensions" Version="0.2.0-alpha" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="6.0.10" />
         <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.10.0" />

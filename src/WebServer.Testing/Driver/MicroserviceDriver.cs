@@ -1,5 +1,4 @@
 ﻿using System.Net.Http.Headers;
-using AV.Household.Commons.Tasks;
 using DotNet.Testcontainers.Builders;
 using DotNet.Testcontainers.Configurations;
 using DotNet.Testcontainers.Containers;
@@ -19,17 +18,17 @@ public abstract class MicroserviceDriver<TClient, TEntryPoint> : WebApplicationF
     /// <summary>
     ///     Client for microservice
     /// </summary>
-    protected readonly AsyncLazy<TClient> Client;
+    protected readonly TClient Client;
 
     /// <summary>
     ///     Mongo database container
     /// </summary>
-    protected readonly AsyncLazy<MongoDbTestcontainer> Database;
+    protected readonly MongoDbTestcontainer Database;
 
     /// <summary>
     ///     Http client that sends query to microservice
     /// </summary>
-    protected readonly AsyncLazy<HttpClient> HttpClient;
+    protected readonly HttpClient HttpClient;
 
     /// <summary>
     ///     Default constructor implementation
@@ -37,7 +36,7 @@ public abstract class MicroserviceDriver<TClient, TEntryPoint> : WebApplicationF
     /// <exception cref="InvalidOperationException">Throws if can't setup lazy objects</exception>
     protected MicroserviceDriver()
     {
-        Database = new AsyncLazy<MongoDbTestcontainer>(async () =>
+        Database = Task.Run(async () =>
         {
             var configuration = DatabaseConfiguration ??
                                 throw new InvalidOperationException("Database configuration is null.");
@@ -46,13 +45,11 @@ public abstract class MicroserviceDriver<TClient, TEntryPoint> : WebApplicationF
                 .Build();
             await container.StartAsync();
             return container;
-        });
+        }).Result;
 
-        HttpClient = new AsyncLazy<HttpClient>(() => Task.FromResult(CreateClient()));
-
-        Client = new AsyncLazy<TClient>(() => Task.FromResult(
-            Activator.CreateInstance(typeof(TClient), HttpClient.GetAwaiter().GetResult()) as TClient
-            ?? throw new InvalidOperationException("Can't create web service client. Check its constructor.")));
+        HttpClient = CreateClient();
+        Client =  Activator.CreateInstance(typeof(TClient), HttpClient) as TClient
+            ?? throw new InvalidOperationException("Can't create web service client. Check its constructor.");
     }
 
     /// <summary>
@@ -64,10 +61,10 @@ public abstract class MicroserviceDriver<TClient, TEntryPoint> : WebApplicationF
     ///     Set bearer token to access microservice API
     /// </summary>
     /// <param name="bearerToken"></param>
-    public async Task SetTokenAsync(string bearerToken)
+    public void SetToken(string bearerToken)
     {
         if (!string.IsNullOrEmpty(bearerToken))
-            (await HttpClient).DefaultRequestHeaders.Authorization =
+            HttpClient.DefaultRequestHeaders.Authorization =
                 new AuthenticationHeaderValue("Bearer", bearerToken);
     }
 }
